@@ -70,7 +70,6 @@ public class LevelTranslator : MonoBehaviour
 
             //if (isEndless)
             //{
-            //Debug.Log("ohsi");
             //if (Vector3.Distance(lastCreatedObject.position, levelObjectOrigin) >= objectSpacing + Time.deltaTime)
             //{
                     
