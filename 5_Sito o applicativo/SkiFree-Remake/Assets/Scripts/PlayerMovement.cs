@@ -17,15 +17,15 @@ public class PlayerMovement : MonoBehaviour
         mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         
-        /*
+        
         //non si può muovere verso l'alto
-        if(mousePosition.y < transform.position.y){
+        /*if(mousePosition.y < transform.position.y){
             position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed);
         }else if(mousePosition.x == transform.position.x){
             position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed/2);
-        }
-        */
-         position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed);
+        }*/
+        
+        position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed);
     }
 
     private void FixedUpdate(){
@@ -35,5 +35,10 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 getPosition(){
         //Debug.Log(transform.position.x + " " + transform.position.y);
         return new Vector3(transform.position.x, transform.position.y, 0);
+    }
+
+    private void OnCollsionEnter2D(Collision c){
+        //moveSpeed = 0;
+        Debug.Log("COLLISIONE CON " + c);
     }
 }
