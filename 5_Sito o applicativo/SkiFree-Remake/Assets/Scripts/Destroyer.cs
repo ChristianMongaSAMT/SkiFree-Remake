@@ -16,9 +16,8 @@ public class Destroyer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //se il personaggio si trova ad una certa distanza dall'oggetto esso si distrugge
         if(lg.cam.transform.position.y < this.transform.position.y - DISTANZA_PER_DISTRUGGERE){
-            Debug.Log("BOOOOOOOOOOOOOOOOOOOOOOM");
             Destroy(this.gameObject);
         }
     }

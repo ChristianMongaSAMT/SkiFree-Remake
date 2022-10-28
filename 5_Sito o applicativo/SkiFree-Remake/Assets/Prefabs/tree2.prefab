@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 339655208077005298}
   - component: {fileID: 3090184227423493808}
-  - component: {fileID: 2115223897687877788}
   - component: {fileID: 4761180385657575227}
-  - component: {fileID: 8999344621969679310}
+  - component: {fileID: 818636211}
+  - component: {fileID: 2375925136930243359}
   m_Layer: 0
   m_Name: tree2
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3090184227423493808
 SpriteRenderer:
@@ -87,8 +87,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2115223897687877788
-BoxCollider2D:
+--- !u!50 &4761180385657575227
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591769176346484786}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
+--- !u!114 &818636211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2591769176346484786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d3c3b36e425d7468912218f927c2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &2375925136930243359
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -110,40 +143,37 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.67, y: 0.87}
-  m_EdgeRadius: 0
---- !u!50 &4761180385657575227
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2591769176346484786}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
---- !u!114 &8999344621969679310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2591769176346484786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d3c3b36e425d7468912218f927c2ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 0.20989418, y: -0.32278204}
+      - {x: 0.2188996, y: -0.26196015}
+      - {x: 0.29535508, y: -0.18265462}
+      - {x: 0.33499998, y: -0.124099076}
+      - {x: 0.33499998, y: 0.015258245}
+      - {x: 0.26989532, y: 0.069681644}
+      - {x: 0.2684319, y: 0.16844547}
+      - {x: 0.21384001, y: 0.24222088}
+      - {x: 0.19742997, y: 0.31364524}
+      - {x: 0.10033584, y: 0.37690228}
+      - {x: 0.07364508, y: 0.4331075}
+      - {x: -0.07282827, y: 0.43878496}
+      - {x: -0.14437866, y: 0.38011807}
+      - {x: -0.1525054, y: 0.31719476}
+      - {x: -0.2798604, y: 0.25364518}
+      - {x: -0.28377962, y: 0.12975097}
+      - {x: -0.34256977, y: 0.06201099}
+      - {x: -0.33499998, y: -0.13499999}
+      - {x: -0.26927176, y: -0.19070168}
+      - {x: -0.22139215, y: -0.19910812}
+      - {x: -0.17828059, y: -0.2660644}
+      - {x: -0.11636764, y: -0.29071036}
+      - {x: -0.11726284, y: -0.3306862}
+      - {x: -0.1443429, y: -0.36038828}
+      - {x: -0.14691305, y: -0.3984586}
+      - {x: -0.1740725, y: -0.4093523}
+      - {x: -0.17720729, y: -0.435}
+      - {x: 0.22537822, y: -0.43152004}
+      - {x: 0.22885841, y: -0.3954607}
+      - {x: 0.17772985, y: -0.4015478}
+      - {x: 0.18015829, y: -0.33673996}
+  m_UseDelaunayMesh: 0
