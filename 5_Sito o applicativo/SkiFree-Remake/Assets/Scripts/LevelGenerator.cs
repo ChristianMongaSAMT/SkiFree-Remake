@@ -6,8 +6,12 @@ public class LevelGenerator : MonoBehaviour
 {
     public GameObject[] ostacoli;
     public Camera cam;
+
+    private GameObject dynamicObject;
     private const int DISTANZA_VERTICALE = 3;
     private const int DISTANZA_ORIZZONTALE = 20;
+    private const float VELOCITA_OSTACOLI = 5f;
+    private const int POSIZIONE_SPAWN_OSTACOLO_DINAMICO = 10;
     private const int RANGE = 2;
     private List<float> yUsate = new List<float>();
 
@@ -33,7 +37,11 @@ public class LevelGenerator : MonoBehaviour
                     float randSposta = Random.Range(0, 1f);
 
                     //istanzio l'ostacolo 
-                    Instantiate(ostacoli[rand], new Vector2(xCamera+i, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
+                    Instantiate(
+                        ostacoli[rand], 
+                        new Vector2(xCamera+i, yCamera - DISTANZA_VERTICALE - randSposta), 
+                        Quaternion.identity
+                    );
                 }
                 //nuovo numero random per la scelta dell'ostacolo da generare
                 rand = Random.Range(0, ostacoli.Length);
@@ -42,25 +50,51 @@ public class LevelGenerator : MonoBehaviour
             //se la y dove bisogna creare la riga di ostacoli si trova fuori dal range della riga precedente (per non fare sovrapposizioni) crea la riga
             if(yCamera - DISTANZA_VERTICALE < yUsate[yUsate.Count-1] - RANGE ){
                 yUsate.Add(yCamera-DISTANZA_VERTICALE);
+                int randPercentuale = 0;
 
                 //loop per generare tutti gli ostacoli di una riga
                 for(int i = -20; i < DISTANZA_ORIZZONTALE; i++){
                     rand = Random.Range(0, ostacoli.Length);
-                    int randPercentuale = Random.Range(0, 101);
+                    randPercentuale = Random.Range(0, 101);
                     
                     if(randPercentuale < 60){
                         float randSposta = Random.Range(0, 1f);
                         Instantiate(ostacoli[rand], new Vector2(xCamera+i, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
                     }
                 }
-            }
-        }
 
-        if(yUsate.Count > 3){
-            float riga = yUsate[yUsate.Count-3];
-            for(int i = -20; i < 20; i++){
-                
-                
+
+                //--------Generazione ostacoli dinamici--------//
+                randPercentuale = Random.Range(0, 101);
+
+                //se la percentuale è sotto il 20
+                if(randPercentuale < 70){
+                    rand = Random.Range(0, ostacoli.Length);
+                    float randSposta = Random.Range(2, 3);
+                    randPercentuale = Random.Range(0,101);
+
+                    float posizioneX;
+                    float velocita;
+
+                    //id che stabilisce se deve generarsi a destra e va verso sinistra o il contrario
+                    if(randPercentuale < 50){
+                        //imposto valori se spawna a destra
+                        posizioneX = xCamera+POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
+                        velocita = VELOCITA_OSTACOLI * -1;
+                    }else{
+                        //imposto valori se spawna a sinistra
+                        posizioneX = xCamera-POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
+                        velocita = VELOCITA_OSTACOLI;
+                    }
+                    //genera oggetto
+                    var dynamicObject = Instantiate(ostacoli[ostacoli.Length-1], new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
+                    
+                    //ricava rigidbody
+                    var rb = dynamicObject.GetComponent<Rigidbody2D>();
+                    
+                    //imposta una velocità
+                    rb.velocity = new Vector2(velocita, 0f);
+                }
             }
         }
     }
