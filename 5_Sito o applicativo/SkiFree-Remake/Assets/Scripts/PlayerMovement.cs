@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
                     if(moveSpeed == SPEED){
                         Debug.Log("Tasto SX premuto");
                         bc.isTrigger = true;
+                        bc.transform.position = new Vector3(bc.transform.position.x, bc.transform.position.y, -0.1f);
                         StartCoroutine(jump());
                     }
                 }
@@ -95,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2);
         //viene riportato dritto
         transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
+        
         moveSpeed = SPEED;
         Debug.Log(moveSpeed);
     }
@@ -102,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator jump(){
         yield return new WaitForSeconds(2f);
         bc.isTrigger = false;
+        bc.transform.position = new Vector3(bc.transform.position.x, bc.transform.position.y, 0.0f);
     }
     /*
     private void setMoveSpeed(){
