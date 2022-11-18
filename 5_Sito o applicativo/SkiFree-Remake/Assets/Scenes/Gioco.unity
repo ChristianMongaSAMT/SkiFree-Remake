@@ -1297,6 +1297,7 @@ MonoBehaviour:
   - {fileID: 5565230274027816408, guid: 27451bd74b14390439e010a0f2a670f4, type: 3}
   - {fileID: 3873945314259625808, guid: 6f481c1eb7b5d4a46994563adeb99953, type: 3}
   - {fileID: 3639122505973665969, guid: 6252213271929824e84d1f007a911ebf, type: 3}
+  yeti: {fileID: 7592724057502700422, guid: ae146497589310a4cbee788292c9ee53, type: 3}
   cam: {fileID: 519420031}
 --- !u!1001 &1486874164
 PrefabInstance:
@@ -1432,7 +1433,7 @@ GameObject:
   - component: {fileID: 1602098927}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

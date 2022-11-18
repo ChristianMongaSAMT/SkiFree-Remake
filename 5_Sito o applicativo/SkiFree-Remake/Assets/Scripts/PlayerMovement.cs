@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -86,6 +87,10 @@ public class PlayerMovement : MonoBehaviour
         //se si scontra con un ostacolo dinamico, quell'ostacolo si ferma nella sua posizione
         if(c.gameObject.name.Contains("dynamic")){
             c.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+        //se si scontra contro lo Yeti il personaggio muore e viene caricata la schermata iniziale
+        }else if(c.gameObject.name.Contains("Yeti")){
+            Destroy(c.gameObject);
+            SceneManager.LoadScene(0);
         }
         //per il tempo
         StartCoroutine(waiter());

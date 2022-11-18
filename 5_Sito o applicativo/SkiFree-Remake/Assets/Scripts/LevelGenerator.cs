@@ -5,6 +5,8 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     public GameObject[] ostacoli;
+    public GameObject yeti;
+    private bool yetiGenerato = false;
     public Camera cam;
 
     private GameObject dynamicObject;
@@ -96,6 +98,13 @@ public class LevelGenerator : MonoBehaviour
                     rb.velocity = new Vector2(velocita, 0f);
                 }
             }
+        }
+
+        //---Spawn Yeti---//
+        if(yCamera <= -10f && !yetiGenerato){
+            //dopo una certa distanza genera lo Yeti sopra il player e inizia a seguirlo
+            Instantiate(yeti, new Vector2(xCamera, yCamera+3),Quaternion.identity);
+            yetiGenerato = true;
         }
     }
 }
