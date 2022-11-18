@@ -16,13 +16,24 @@ public class Yeti : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //muove lo yeti verso la posizione del player
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, velocita * Time.deltaTime);
+
         if(player.transform.position.x < this.transform.position.x){
-            Debug.Log("SINISTRA");
+            
+            //ruota di 180° se il personaggio si trova alla destra dello yeti
             this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 180, this.transform.eulerAngles.z);
+
         }else if(player.transform.position.x > this.transform.position.x){
-            Debug.Log("DESTRA");
+            
+            //torna alla rotazione di 0° se il personaggio si trova alla sinistra dello yeti
             this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, this.transform.eulerAngles.z);
+
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D c){
+        Destroy(c.gameObject);
+    }
+
 }
