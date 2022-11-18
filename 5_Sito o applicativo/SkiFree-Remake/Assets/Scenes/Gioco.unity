@@ -1272,7 +1272,7 @@ Transform:
   m_GameObject: {fileID: 1390616318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.3583918, y: -0.8601676, z: -24.872232}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1296,6 +1296,10 @@ MonoBehaviour:
   - {fileID: 3639122505973665969, guid: c9991ff26a4e0a64cb744b6bce3127f1, type: 3}
   - {fileID: 5565230274027816408, guid: 27451bd74b14390439e010a0f2a670f4, type: 3}
   - {fileID: 3873945314259625808, guid: 6f481c1eb7b5d4a46994563adeb99953, type: 3}
+  - {fileID: 7462337366300643451, guid: 8f7ece6f396a43e498b805808ba7f5db, type: 3}
+  - {fileID: 3587827879396093315, guid: 525fb9d1b7b15b64781948a589905cca, type: 3}
+  - {fileID: 7503063939919240215, guid: 8e52c2a264b4bb54aa034610f07647bd, type: 3}
+  ostacoliDinamici:
   - {fileID: 3639122505973665969, guid: 6252213271929824e84d1f007a911ebf, type: 3}
   yeti: {fileID: 7592724057502700422, guid: ae146497589310a4cbee788292c9ee53, type: 3}
   cam: {fileID: 519420031}

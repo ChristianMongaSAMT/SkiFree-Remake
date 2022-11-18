@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     public GameObject[] ostacoli;
+    public GameObject[] ostacoliDinamici;
     public GameObject yeti;
     private bool yetiGenerato = false;
     public Camera cam;
@@ -71,7 +72,7 @@ public class LevelGenerator : MonoBehaviour
 
                 //se la percentuale è sotto il 20
                 if(randPercentuale < 70){
-                    rand = Random.Range(0, ostacoli.Length);
+                    rand = Random.Range(0, ostacoliDinamici.Length);
                     float randSposta = Random.Range(2, 3);
                     randPercentuale = Random.Range(0,101);
 
@@ -89,7 +90,7 @@ public class LevelGenerator : MonoBehaviour
                         velocita = VELOCITA_OSTACOLI;
                     }
                     //genera oggetto
-                    var dynamicObject = Instantiate(ostacoli[ostacoli.Length-1], new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
+                    var dynamicObject = Instantiate(ostacoliDinamici[rand], new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
                     
                     //ricava rigidbody
                     var rb = dynamicObject.GetComponent<Rigidbody2D>();
