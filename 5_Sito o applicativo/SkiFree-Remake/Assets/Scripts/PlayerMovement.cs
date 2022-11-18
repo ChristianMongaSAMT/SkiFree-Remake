@@ -31,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
                 mousePosition = Input.mousePosition;
                 mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
+                if((mousePosition.x - this.transform.position.x)*100 < 90 && (mousePosition.x - this.transform.position.x)*100 > -90){
+                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, (mousePosition.x - this.transform.position.x)*100);
+                }
+                
+
                 //non si può muovere verso l'alto
                 /*if(mousePosition.y < transform.position.y){
                     position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed);
@@ -91,6 +96,9 @@ public class PlayerMovement : MonoBehaviour
         }else if(c.gameObject.name.Contains("Yeti")){
             Destroy(c.gameObject);
             SceneManager.LoadScene(0);
+        }else if (c.gameObject.name.Contains("wolf")){
+            c.gameObject.GetComponent<Animator>().SetInteger("Colpito", 1);
+            c.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }
         //per il tempo
         StartCoroutine(waiter());
