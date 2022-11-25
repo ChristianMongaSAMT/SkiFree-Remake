@@ -78,19 +78,27 @@ public class LevelGenerator : MonoBehaviour
 
                     float posizioneX;
                     float velocita;
+                    bool sinistra = true;
 
                     //id che stabilisce se deve generarsi a destra e va verso sinistra o il contrario
                     if(randPercentuale < 50){
                         //imposto valori se spawna a destra
                         posizioneX = xCamera+POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
                         velocita = VELOCITA_OSTACOLI * -1;
+                        sinistra = false;
                     }else{
                         //imposto valori se spawna a sinistra
                         posizioneX = xCamera-POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
                         velocita = VELOCITA_OSTACOLI;
                     }
+                    
                     //genera oggetto dinamico
-                    var dynamicObject = Instantiate(ostacoliDinamici[rand], new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
+                    GameObject dynamicObject = Instantiate(ostacoliDinamici[rand], new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
+                    
+                    //se l'oggetto dinamico si  genera a destra dello schermo lo ruota per averlo dritto
+                    if(!sinistra){
+                        dynamicObject.transform.eulerAngles = new Vector3(dynamicObject.transform.eulerAngles.x, 180, dynamicObject.transform.eulerAngles.z);
+                    }               
                     
                     //ricava rigidbody
                     var rb = dynamicObject.GetComponent<Rigidbody2D>();

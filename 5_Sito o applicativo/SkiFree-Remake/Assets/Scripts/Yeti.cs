@@ -5,7 +5,7 @@ using UnityEngine;
 public class Yeti : MonoBehaviour
 {
     private GameObject player;
-    private float velocita = 1f;
+    private float velocita = 3f;
 
     // Start is called before the first frame update
     void Start()

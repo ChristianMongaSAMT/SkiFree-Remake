@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Vector3 mousePosition;
+    private Vector3 mousePosition;
 
-    private const float SPEED = 0.05f;
+    private Camera mainCamera;
+
+    private const float SPEED = 2f;
     private const float JUMP_TIME = 1f;
     private float moveSpeed = SPEED;
-    private Animator wolfAnimator;
 
     private float angle = 0;
     float yMousePosition = 0.0f;
@@ -22,15 +23,27 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         bc = GetComponent<BoxCollider2D>();
+
+        mainCamera	= Camera.main;
+    }
+
+    private void SeguiMouse(){
+        transform.position = PrendiPosizioneMouse();
+    }
+
+    private Vector2 PrendiPosizioneMouse(){
+        return mainCamera.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void SeguiMouseDelay(float speed){
+        transform.position = Vector2.MoveTowards(transform.position, PrendiPosizioneMouse(), speed * Time.deltaTime);
     }
 
     private void Update(){
+         SeguiMouseDelay(moveSpeed);
         //se è per terra
-        
         if(bc.isTrigger == false){
             if(transform.rotation.x < 0.1 && transform.rotation.x > -0.1){
-                mousePosition = Input.mousePosition;
-                mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
                 if((mousePosition.x - this.transform.position.x)*100 < 90 && (mousePosition.x - this.transform.position.x)*100 > -90){
                     this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, (mousePosition.x - this.transform.position.x)*100);
@@ -74,13 +87,12 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed);
     }
 
-    private void FixedUpdate(){
+    /*private void FixedUpdate(){
         rb.MovePosition(position);
         //setMoveSpeed();
-    }
+    }*/
 
     /*public Vector3 getPosition(){
         return new Vector3(transform.position.x, transform.position.y, 0);
@@ -93,30 +105,23 @@ public class PlayerMovement : MonoBehaviour
         //se si scontra con un ostacolo dinamico, quell'ostacolo si ferma nella sua posizione
         if(c.gameObject.name.Contains("dynamic")){
             c.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
-            //se si scontra con il lupo imposta la condizione Colpito a 1 così l'animazione passerà da Run a Dead
-            if (c.gameObject.name.Contains("wolf")){
-                c.gameObject.GetComponent<Animator>().SetInteger("Colpito", 1);
-                wolfAnimator = c.gameObject.GetComponent<Animator>();
-                //StartCoroutine(aspetta(1));
-               
-            }
         //se si scontra contro lo Yeti il personaggio muore e viene caricata la schermata iniziale
         }else if(c.gameObject.name.Contains("Yeti")){
             Destroy(c.gameObject);
             SceneManager.LoadScene(0);
         }
 
-        //per il tempo
+        //aspetta 2 secondi prima di sbloccare il personaggio
         StartCoroutine(scontro());
         
     }
 
     IEnumerator scontro(){
-        Debug.Log("COROUTINE scontro");
-        //aspetta tot secondi e poi ricomincia ad andare
+        //aspetta 2 secondi e poi ricomincia ad andare
         yield return new WaitForSeconds(2);
-        //vengono reimpostati i valori
-        //transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
+        
+        //vengono reimpostati i valori corretti
+        transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
         moveSpeed = SPEED;
     }
 
