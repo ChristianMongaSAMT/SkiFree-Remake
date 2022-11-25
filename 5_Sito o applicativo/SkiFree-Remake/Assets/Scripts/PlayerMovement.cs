@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private const float SPEED = 0.05f;
     private const float JUMP_TIME = 1f;
     private float moveSpeed = SPEED;
+    private Animator wolfAnimator;
 
     private float angle = 0;
     float yMousePosition = 0.0f;
@@ -50,13 +51,13 @@ public class PlayerMovement : MonoBehaviour
                         Debug.Log("Tasto SX premuto");
                         bc.isTrigger = true;
                         bc.transform.position = new Vector3(bc.transform.position.x, bc.transform.position.y, -0.1f);
-                        StartCoroutine(jump());
+                        StartCoroutine(salto());
                     }
                 }
             }else{
                 Debug.Log(transform.rotation.x);
                 angle = 0;
-                StartCoroutine(waiter());
+                StartCoroutine(scontro());
             }
             
         }else{
@@ -92,32 +93,42 @@ public class PlayerMovement : MonoBehaviour
         //se si scontra con un ostacolo dinamico, quell'ostacolo si ferma nella sua posizione
         if(c.gameObject.name.Contains("dynamic")){
             c.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+            //se si scontra con il lupo imposta la condizione Colpito a 1 così l'animazione passerà da Run a Dead
+            if (c.gameObject.name.Contains("wolf")){
+                c.gameObject.GetComponent<Animator>().SetInteger("Colpito", 1);
+                wolfAnimator = c.gameObject.GetComponent<Animator>();
+                //StartCoroutine(aspetta(1));
+               
+            }
         //se si scontra contro lo Yeti il personaggio muore e viene caricata la schermata iniziale
         }else if(c.gameObject.name.Contains("Yeti")){
             Destroy(c.gameObject);
             SceneManager.LoadScene(0);
-        }else if (c.gameObject.name.Contains("wolf")){
-            c.gameObject.GetComponent<Animator>().SetInteger("Colpito", 1);
-            c.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
         }
+
         //per il tempo
-        StartCoroutine(waiter());
+        StartCoroutine(scontro());
+        
     }
 
-    IEnumerator waiter(){
+    IEnumerator scontro(){
+        Debug.Log("COROUTINE scontro");
         //aspetta tot secondi e poi ricomincia ad andare
         yield return new WaitForSeconds(2);
-        //viene riportato dritto
-        transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
-        
+        //vengono reimpostati i valori
+        //transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
         moveSpeed = SPEED;
-        Debug.Log(moveSpeed);
     }
 
-    IEnumerator jump(){
+    IEnumerator salto(){
         yield return new WaitForSeconds(2f);
         bc.isTrigger = false;
         bc.transform.position = new Vector3(bc.transform.position.x, bc.transform.position.y, 0.0f);
+    }
+
+    IEnumerator aspetta(int secondi){
+        yield return new WaitForSeconds(secondi);
+        Debug.Log("ASPETTA");
     }
     /*
     private void setMoveSpeed(){

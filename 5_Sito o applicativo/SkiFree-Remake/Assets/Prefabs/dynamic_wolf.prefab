@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5022523484035625982}
   - component: {fileID: -2356807738965257221}
   m_Layer: 0
-  m_Name: wolf_sprite_0
+  m_Name: dynamic_wolf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

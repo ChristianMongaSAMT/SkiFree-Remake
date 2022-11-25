@@ -89,7 +89,7 @@ public class LevelGenerator : MonoBehaviour
                         posizioneX = xCamera-POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
                         velocita = VELOCITA_OSTACOLI;
                     }
-                    //genera oggetto
+                    //genera oggetto dinamico
                     var dynamicObject = Instantiate(ostacoliDinamici[rand], new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
                     
                     //ricava rigidbody
