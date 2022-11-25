@@ -10,11 +10,11 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
 
     private const float SPEED = 2f;
-    private const float JUMP_TIME = 1f;
+    private const float JUMP_TIME = 2f;
     private float moveSpeed = SPEED;
+    private bool volo = false;
 
     private float angle = 0;
-    float yMousePosition = 0.0f;
     Rigidbody2D rb;
     BoxCollider2D bc;
     Vector2 position = new Vector3(0f, 0f);
@@ -36,14 +36,41 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void SeguiMouseDelay(float speed){
-        transform.position = Vector2.MoveTowards(transform.position, PrendiPosizioneMouse(), speed * Time.deltaTime);
+        mousePosition = PrendiPosizioneMouse();
+        transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+    }
+
+    private void PuntaMouse(){
+        mousePosition = PrendiPosizioneMouse();
+
+        Vector2 direzione = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+
+        //sprite ruotato di 180 gradi così punta correttametne
+        transform.up = direzione;
     }
 
     private void Update(){
-         SeguiMouseDelay(moveSpeed);
+        
         //se è per terra
-        if(bc.isTrigger == false){
-            if(transform.rotation.x < 0.1 && transform.rotation.x > -0.1){
+        if(!volo){
+                SeguiMouseDelay(moveSpeed);
+                PuntaMouse();
+                if(Input.GetMouseButtonDown(0)){
+                    volo = true;
+                    StartCoroutine(salto());
+                }
+                /*if (Input.GetMouseButtonDown(0)){
+                    Debug.Log(moveSpeed);
+                    if(moveSpeed == SPEED){
+                        Debug.Log("Tasto SX premuto");
+                        //bc.isTrigger = true;
+                        volo = true;
+                        transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
+                        StartCoroutine(salto());
+                    }
+                }*/
+
+            /*if(transform.rotation.x < 0.1 && transform.rotation.x > -0.1){
 
                 if((mousePosition.x - this.transform.position.x)*100 < 90 && (mousePosition.x - this.transform.position.x)*100 > -90){
                     this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, (mousePosition.x - this.transform.position.x)*100);
@@ -55,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
                     position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed);
                 }else if(mousePosition.x == transform.position.x){
                     position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed/2);
-                }*/
+                }--/
                 
                 //se si preme il tasto sx
                 if (Input.GetMouseButtonDown(0)){
@@ -71,11 +98,11 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log(transform.rotation.x);
                 angle = 0;
                 StartCoroutine(scontro());
-            }
+            }*/
             
         }else{
             //essendo in volo non può girare
-            mousePosition = new Vector3(mousePosition.x, Camera.main.ScreenToWorldPoint(mousePosition).y, mousePosition.z);
+            mousePosition = new Vector3(mousePosition.x, mainCamera.ScreenToWorldPoint(mousePosition).y, mousePosition.z);
             //se viene premuto il tasto destro fa una piccola rotazione
             if(Input.GetMouseButtonDown(1)){
                 angle += 36;
@@ -87,12 +114,13 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed/75);
     }
 
-    /*private void FixedUpdate(){
+    private void FixedUpdate(){
         rb.MovePosition(position);
         //setMoveSpeed();
-    }*/
+    }
 
     /*public Vector3 getPosition(){
         return new Vector3(transform.position.x, transform.position.y, 0);
@@ -126,9 +154,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     IEnumerator salto(){
-        yield return new WaitForSeconds(2f);
-        bc.isTrigger = false;
-        bc.transform.position = new Vector3(bc.transform.position.x, bc.transform.position.y, 0.0f);
+        yield return new WaitForSeconds(JUMP_TIME);
+        //bc.isTrigger = false;
+        volo = false;
+        //transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
     }
 
     IEnumerator aspetta(int secondi){

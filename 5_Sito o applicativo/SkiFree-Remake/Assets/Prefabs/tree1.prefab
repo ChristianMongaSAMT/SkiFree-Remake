@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1168921304}
   - component: {fileID: 1168921308}
   - component: {fileID: 1168921307}
+  - component: {fileID: 1421868402250554121}
   m_Layer: 0
   m_Name: tree1
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8121450075675383663
 SpriteRenderer:
@@ -165,3 +166,15 @@ PolygonCollider2D:
       - {x: 0.122734785, y: 0.099170744}
       - {x: 0.090041816, y: 0.12685809}
   m_UseDelaunayMesh: 0
+--- !u!114 &1421868402250554121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8391822886685041964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e625c329d8b51414d9d3c622adb9196c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
