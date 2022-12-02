@@ -28,7 +28,6 @@ public class Destroyer : MonoBehaviour
 
         //se viene premuto il tasto sinistro e quindi si trova in volo
         if (Input.GetMouseButtonDown(0)){
-                Debug.Log("Tasto SX premuto");
                 collider.isTrigger = true;
                 StartCoroutine(salto());
         }

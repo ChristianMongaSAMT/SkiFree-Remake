@@ -12,7 +12,6 @@ public class Albero : MonoBehaviour
     void Update()
     {
         if (Input.GetMouseButtonDown(0)){
-                Debug.Log("Tasto SX premuto");
                 collider.isTrigger = true;
                 StartCoroutine(salto());
         }
