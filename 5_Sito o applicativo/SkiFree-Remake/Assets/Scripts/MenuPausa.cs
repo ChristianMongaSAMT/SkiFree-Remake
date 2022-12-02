@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MenuPausa : MonoBehaviour
 {
-   public static bool GiocoInPausa = false;
+   public bool GiocoInPausa = false;
+
+ 
 
    public GameObject menuPausa;
 

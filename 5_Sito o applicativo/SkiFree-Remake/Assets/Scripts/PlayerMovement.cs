@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private Dati dati;
+    
+    [SerializeField]
+    private MenuPausa menuPausa;
 
     private const float SPEED = 2f;
     public const float JUMP_TIME = 2f;
@@ -21,15 +24,12 @@ public class PlayerMovement : MonoBehaviour
     private bool acrobazia = false; 
     private float ultimaAngolazione = 0;
     Rigidbody2D rb;
-    BoxCollider2D bc;
 
     //private Transform playerBodyTransform;
     Vector2 position = new Vector3(0f, 0f);
 
     private void Start(){
         rb = GetComponent<Rigidbody2D>();
-
-        bc = GetComponent<BoxCollider2D>();
 
         mainCamera	= Camera.main;
 
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
     }
 
-    private void PuntaMouse(){
+    public void PuntaMouse(){
         //prende le posizioni del mouse
         mousePosition = PrendiPosizioneMouse();
 
@@ -75,69 +75,37 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            
-            SeguiMouseDelay(moveSpeed);
-            PuntaMouse();
-            
-            //non è in acrobazia
-            acrobazia = false;
-            angle = 0;
-            
-            //non si può muovere verso l'alto
-            /*if(PrendiPosizioneMouse().y < transform.position.y){
-                SeguiMouseDelay(moveSpeed);
-                PuntaMouse();
-            }
-            /*else if(PrendiPosizioneMouse().x == transform.position.x){
-                SeguiMouseDelay(moveSpeed/100);
-                PuntaMouse();
-            }*/
+            if(!menuPausa.GiocoInPausa){
 
-            //Se viene premuto il tasto sinistro salta
-            if(Input.GetMouseButtonDown(0)){
-                volo = true;
+                //non si può muovere verso l'alto
+                if(PrendiPosizioneMouse().y < transform.position.y){
+                    SeguiMouseDelay(moveSpeed);
+                    PuntaMouse();
+                }
+
+                //non sta facendo acrobazie
+                acrobazia = false;
+
+                //reset dell'angolo di giro per l'acrobazia
                 angle = 0;
-                transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
-                //playerBodyTransform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-                
-                StartCoroutine(salto());
-            }
 
-            /*if (Input.GetMouseButtonDown(0)){
-                Debug.Log(moveSpeed);
-                if(moveSpeed == SPEED){
-                    Debug.Log("Tasto SX premuto");
-                    //bc.isTrigger = true;
+                //Se viene premuto il tasto sinistro salta
+                if(Input.GetMouseButtonDown(0)){
+                    
                     volo = true;
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
+                    
+                    //resetta l'angolo a 0
+                    angle = 0;
+                    
+                    //sposta il player verso la camera per simulare un salto sopra l'albero
+                    transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+                    
+                    //parte la couroutine del salto
                     StartCoroutine(salto());
                 }
-            }*/
-
-            /*if(transform.rotation.x < 0.1 && transform.rotation.x > -0.1){
-
-                if((mousePosition.x - this.transform.position.x)*100 < 90 && (mousePosition.x - this.transform.position.x)*100 > -90){
-                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, (mousePosition.x - this.transform.position.x)*100);
-                }
-      
-                //se si preme il tasto sx
-                if (Input.GetMouseButtonDown(0)){
-                    Debug.Log(moveSpeed);
-                    if(moveSpeed == SPEED){
-                        Debug.Log("Tasto SX premuto");
-                        bc.isTrigger = true;
-                        bc.transform.position = new Vector3(bc.transform.position.x, bc.transform.position.y, -0.1f);
-                        StartCoroutine(salto());
-                    }
-                }
-            }else{
-                Debug.Log(transform.rotation.x);
-                angle = 0;
-                StartCoroutine(scontro());
-            }*/
-            
+            }
         }else{
-            //essendo in volo non può girare
+            //essendo in volo non può girare ma mantiene una direzione costante
             mousePosition = new Vector3(mousePosition.x, mainCamera.ScreenToWorldPoint(mousePosition).y, mousePosition.z);
 
             //se viene premuto il tasto destro fa una piccola rotazione
