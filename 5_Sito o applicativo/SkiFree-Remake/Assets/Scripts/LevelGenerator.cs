@@ -110,7 +110,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //---Spawn Yeti---//
-        if(yCamera <= -10f && !yetiGenerato){
+        if(yCamera <= -100f && !yetiGenerato){
             //dopo una certa distanza genera lo Yeti sopra il player e inizia a seguirlo
             Instantiate(yeti, new Vector2(xCamera, yCamera+3),Quaternion.identity);
             yetiGenerato = true;

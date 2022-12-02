@@ -10,13 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
 
     private const float SPEED = 2f;
-    private const float JUMP_TIME = 2f;
+    public const float JUMP_TIME = 2f;
     private float moveSpeed = SPEED;
     private bool volo = false;
-
     private float angle = 0;
     Rigidbody2D rb;
     BoxCollider2D bc;
+
+    //private Transform playerBodyTransform;
     Vector2 position = new Vector3(0f, 0f);
 
     private void Start(){
@@ -25,27 +26,31 @@ public class PlayerMovement : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
 
         mainCamera	= Camera.main;
-    }
 
-    private void SeguiMouse(){
-        transform.position = PrendiPosizioneMouse();
+        //playerBodyTransform = transform.GetChild(0);
     }
 
     private Vector2 PrendiPosizioneMouse(){
+        //ritorna la posizione del mouse
         return mainCamera.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void SeguiMouseDelay(float speed){
+        //salva la posizione del mouse in mousePosition
         mousePosition = PrendiPosizioneMouse();
+        
+        //muove il player dalla sua posizione verso quella del mouse
         transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
     }
 
     private void PuntaMouse(){
+        //prende le posizioni del mouse
         mousePosition = PrendiPosizioneMouse();
 
+        //prende la direzione in cui deve guardare
         Vector2 direzione = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
 
-        //sprite ruotato di 180 gradi così punta correttametne
+        //sprite ruotato di 180 gradi (x) così punta correttametne al cursore
         transform.up = direzione;
     }
 
@@ -53,12 +58,27 @@ public class PlayerMovement : MonoBehaviour
         
         //se è per terra
         if(!volo){
-                SeguiMouseDelay(moveSpeed);
-                PuntaMouse();
+
+                //non si può muovere verso l'alto
+                if(PrendiPosizioneMouse().y < transform.position.y){
+                    SeguiMouseDelay(moveSpeed);
+                    PuntaMouse();
+                }
+                /*else if(PrendiPosizioneMouse().x == transform.position.x){
+                    SeguiMouseDelay(moveSpeed/100);
+                    PuntaMouse();
+                }*/
+
+                //Se viene premuto il tasto sinistro salta
                 if(Input.GetMouseButtonDown(0)){
                     volo = true;
+                    angle = 0;
+                    transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+                    //playerBodyTransform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                    
                     StartCoroutine(salto());
                 }
+
                 /*if (Input.GetMouseButtonDown(0)){
                     Debug.Log(moveSpeed);
                     if(moveSpeed == SPEED){
@@ -75,15 +95,7 @@ public class PlayerMovement : MonoBehaviour
                 if((mousePosition.x - this.transform.position.x)*100 < 90 && (mousePosition.x - this.transform.position.x)*100 > -90){
                     this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 0, (mousePosition.x - this.transform.position.x)*100);
                 }
-                
-
-                //non si può muovere verso l'alto
-                /*if(mousePosition.y < transform.position.y){
-                    position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed);
-                }else if(mousePosition.x == transform.position.x){
-                    position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed/2);
-                }--/
-                
+      
                 //se si preme il tasto sx
                 if (Input.GetMouseButtonDown(0)){
                     Debug.Log(moveSpeed);
@@ -103,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
         }else{
             //essendo in volo non può girare
             mousePosition = new Vector3(mousePosition.x, mainCamera.ScreenToWorldPoint(mousePosition).y, mousePosition.z);
+
             //se viene premuto il tasto destro fa una piccola rotazione
             if(Input.GetMouseButtonDown(1)){
                 angle += 36;
@@ -110,11 +123,13 @@ public class PlayerMovement : MonoBehaviour
                     transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
                     angle = 0;
                 }
+
                 transform.Rotate(new Vector3(angle,0,0));
             }
 
         }
-        position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed/75);
+        //si muove più veloce in volo
+        position = Vector2.MoveTowards(transform.position, mousePosition, (moveSpeed/35) );
     }
 
     private void FixedUpdate(){
@@ -153,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = SPEED;
     }
 
-    IEnumerator salto(){
+    public IEnumerator salto(){
         yield return new WaitForSeconds(JUMP_TIME);
         //bc.isTrigger = false;
         volo = false;
