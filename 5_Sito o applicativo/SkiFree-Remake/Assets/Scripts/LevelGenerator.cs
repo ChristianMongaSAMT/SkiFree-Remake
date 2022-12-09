@@ -50,13 +50,15 @@ public class LevelGenerator : MonoBehaviour
                 rand = Random.Range(0, ostacoli.Length);
             }
         }else{
-            //se la y dove bisogna creare la riga di ostacoli si trova fuori dal range della riga precedente (per non fare sovrapposizioni) crea la riga
+            //se la y dove bisogna creare la riga di ostacoli si trova fuori 
+            //dal range della riga precedente (per non fare sovrapposizioni) 
+            //crea la riga
             if(yCamera - DISTANZA_VERTICALE < yUsate[yUsate.Count-1] - RANGE ){
                 yUsate.Add(yCamera-DISTANZA_VERTICALE);
                 int randPercentuale = 0;
 
                 //loop per generare tutti gli ostacoli di una riga
-                for(int i = -20; i < DISTANZA_ORIZZONTALE; i++){
+                for(int i = DISTANZA_ORIZZONTALE*-1; i < DISTANZA_ORIZZONTALE; i++){
                     rand = Random.Range(0, ostacoli.Length);
                     randPercentuale = Random.Range(0, 101);
                     
@@ -66,46 +68,8 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
 
-
-                //--------Generazione ostacoli dinamici--------//
-                randPercentuale = Random.Range(0, 101);
-
-                //se la percentuale è sotto il 20
-                if(randPercentuale < 70){
-                    rand = Random.Range(0, ostacoliDinamici.Length);
-                    float randSposta = Random.Range(2, 3);
-                    randPercentuale = Random.Range(0,101);
-
-                    float posizioneX;
-                    float velocita;
-                    bool sinistra = true;
-
-                    //id che stabilisce se deve generarsi a destra e va verso sinistra o il contrario
-                    if(randPercentuale < 50){
-                        //imposto valori se spawna a destra
-                        posizioneX = xCamera+POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
-                        velocita = VELOCITA_OSTACOLI * -1;
-                        sinistra = false;
-                    }else{
-                        //imposto valori se spawna a sinistra
-                        posizioneX = xCamera-POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
-                        velocita = VELOCITA_OSTACOLI;
-                    }
-                    
-                    //genera oggetto dinamico
-                    GameObject dynamicObject = Instantiate(ostacoliDinamici[rand], new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), Quaternion.identity);
-                    
-                    //se l'oggetto dinamico si  genera a destra dello schermo lo ruota per averlo dritto
-                    if(!sinistra){
-                        dynamicObject.transform.eulerAngles = new Vector3(dynamicObject.transform.eulerAngles.x, 180, dynamicObject.transform.eulerAngles.z);
-                    }               
-                    
-                    //ricava rigidbody
-                    var rb = dynamicObject.GetComponent<Rigidbody2D>();
-                    
-                    //imposta una velocità
-                    rb.velocity = new Vector2(velocita, 0f);
-                }
+                generaOstacoliDinamici()
+                
             }
         }
 
@@ -114,6 +78,58 @@ public class LevelGenerator : MonoBehaviour
             //dopo una certa distanza genera lo Yeti sopra il player e inizia a seguirlo
             Instantiate(yeti, new Vector2(xCamera, yCamera+3),Quaternion.identity);
             yetiGenerato = true;
+        }
+    }
+    
+    private void generaOstacoliDinamici(){       
+        int randPercentuale = Random.Range(0, 101);
+
+        //se la percentuale è sotto il 70
+        if(randPercentuale < 70){
+            int randOstacolo = Random.Range(0, ostacoliDinamici.Length);
+            float randSposta = Random.Range(2, 3);
+            randPercentuale = Random.Range(0,101);
+
+            float posizioneX;
+            float velocita;
+            bool sinistra = true;
+
+            //id che stabilisce se deve generarsi a destra e va verso sinistra 
+            //o il contrario
+            if(randPercentuale < 50){
+                //imposto valori se spawna a destra
+                posizioneX = xCamera+POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
+                velocita = VELOCITA_OSTACOLI * -1;
+                sinistra = false;
+            }else{
+                //imposto valori se spawna a sinistra
+                posizioneX = xCamera-POSIZIONE_SPAWN_OSTACOLO_DINAMICO;
+                velocita = VELOCITA_OSTACOLI;
+            }
+            
+            //genera oggetto dinamico
+            GameObject oggettoDinamico = 
+                Instantiate(
+                    ostacoliDinamici[randOstacolo], 
+                    new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), 
+                    Quaternion.identity
+                );
+            
+            //se l'oggetto dinamico si genera a destra dello schermo lo ruota per averlo dritto
+            if(!sinistra){
+                oggettoDinamico.transform.eulerAngles = 
+                    new Vector3(
+                        dynamicObject.transform.eulerAngles.x, 
+                        180, 
+                        dynamicObject.transform.eulerAngles.z
+                    );
+            }               
+            
+            //ricava rigidbody
+            var rb = oggettoDinamico.GetComponent<Rigidbody2D>();
+            
+            //imposta una velocità
+            rb.velocity = new Vector2(velocita, 0f);
         }
     }
 }
