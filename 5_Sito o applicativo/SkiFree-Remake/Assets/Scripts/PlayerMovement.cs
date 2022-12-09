@@ -78,10 +78,10 @@ public class PlayerMovement : MonoBehaviour
             if(!menuPausa.GiocoInPausa){
 
                 //non si può muovere verso l'alto
-                if(PrendiPosizioneMouse().y < transform.position.y){
+                //if(PrendiPosizioneMouse().y < transform.position.y){
                     SeguiMouseDelay(moveSpeed);
                     PuntaMouse();
-                }
+                //}
 
                 //non sta facendo acrobazie
                 acrobazia = false;
@@ -128,10 +128,6 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(position);
         //setMoveSpeed();
     }
-
-    /*public Vector3 getPosition(){
-        return new Vector3(transform.position.x, transform.position.y, 0);
-    }*/
 
     private void OnCollisionEnter2D(Collision2D c){
         moveSpeed = 0f;

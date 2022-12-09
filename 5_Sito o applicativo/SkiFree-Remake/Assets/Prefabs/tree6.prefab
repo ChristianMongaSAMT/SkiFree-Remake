@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 189559637835496731}
   - component: {fileID: 7465194833225833766}
-  - component: {fileID: 7244928809909854193}
   - component: {fileID: 7244928809909854192}
   - component: {fileID: 7244928809909854191}
+  - component: {fileID: 8289881776370120624}
   m_Layer: 0
   m_Name: tree6
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7465194833225833766
 SpriteRenderer:
@@ -87,18 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7244928809909854193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7462337366300643451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d3c3b36e425d7468912218f927c2ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &7244928809909854192
 Rigidbody2D:
   serializedVersion: 4
@@ -187,3 +175,15 @@ PolygonCollider2D:
       - {x: 0.195, y: -0.90999997}
       - {x: 0.235, y: -0.87}
   m_UseDelaunayMesh: 0
+--- !u!114 &8289881776370120624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7462337366300643451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9555806091e7aec41b5e55c5c3aea186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -7,38 +7,65 @@ using System;
 
 public class TimerController : MonoBehaviour
 {
+    public static TimerController timerController;
+    
+    //contiene il testo formattato
     private TextMeshProUGUI tempoTesto;
 
-    DateTime dt = DateTime.Now;
-    private double tempoIniziale;
-    private double tempoGioco;
+    //salva il tempo per poterlo formattare
+    private TimeSpan tempoGioco;
+
+    private bool timerAttivo;
+    
+    //tempo
+    private float tempo;
+
+    void Awake(){
+        timerController = this;
+    }
 
     void Start()
     {
-        //salva il tempo dell'inizio della partita
-        DateTime vuota = new DateTime();
-        TimeSpan time = dt - vuota;
-        tempoIniziale = time.TotalSeconds;
-
-        //prende il campo di testo per il tempo di gioco
+        //prende il text dove poter scrivere il tempo
         tempoTesto = GameObject.FindGameObjectWithTag("TempoGioco").GetComponent<TextMeshProUGUI>();
+
+        //scrive un testo iniziale
+        tempoTesto.text = "Tempo: 00:00:00";
+        timerAttivo = false;
+
+        InizioGioco();
     }
 
-    void Update()
-    {
-        //salva il tempo attuale
-        DateTime actualTime = DateTime.Now;
+    void InizioGioco(){
+        //avvia il timer
+        TimerController.timerController.AvvioTimer();
+    }
 
-        //calcola il tempo di gioco
-        tempoGioco = actualTime.Second - tempoIniziale;
+    void AvvioTimer(){
+        //resetta variabili
+        timerAttivo =  true;
+        tempo = 0f;
+        
+        //avvia couroutine per l'aggiornamento del timer
+        StartCoroutine(AggiornaTimer());
+    }
 
-        //converte il tempo di gioco
-        TimeSpan time = TimeSpan.FromSeconds(tempoGioco);
+    private IEnumerator AggiornaTimer(){
+        while(timerAttivo){
 
-        //formatta il tempo di gioco in hh:mm:ss
-        string str = time .ToString(@"hh\:mm\:ss");
+            //Time.deltaTime è il tempo impiegato dal fotogramma precedente al fotogramma successivo
+            tempo += Time.deltaTime;
 
-        //scrive il tempo di gioco nel suo campo a schermo
-        tempoTesto.text = "Tempo: " + str;
+            
+            tempoGioco = TimeSpan.FromSeconds(tempo);
+
+            //formatta il tempo in hh:mm:ss
+            string tempoGiocoStringa = "Time: " + tempoGioco.ToString("hh':'mm':'ss");
+
+            //salva all'interno del text nel gioco il tempo di gioco 
+            tempoTesto.text = tempoGiocoStringa;
+
+            yield return null;
+        }
     }
 }

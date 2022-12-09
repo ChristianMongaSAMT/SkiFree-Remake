@@ -31,10 +31,10 @@ public class Destroyer : MonoBehaviour
                 collider.isTrigger = true;
                 StartCoroutine(salto());
         }
+    }
 
-        IEnumerator salto(){
-            yield return new WaitForSeconds(PlayerMovement.JUMP_TIME);
-            collider.isTrigger = false;
-        }
+    IEnumerator salto(){
+        yield return new WaitForSeconds(PlayerMovement.JUMP_TIME);
+        collider.isTrigger = false;
     }
 }

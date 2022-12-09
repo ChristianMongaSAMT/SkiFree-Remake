@@ -55,6 +55,7 @@ public class LevelGenerator : MonoBehaviour
             //crea la riga
             if(yCamera - DISTANZA_VERTICALE < yUsate[yUsate.Count-1] - RANGE ){
                 yUsate.Add(yCamera-DISTANZA_VERTICALE);
+                
                 int randPercentuale = 0;
 
                 //loop per generare tutti gli ostacoli di una riga
@@ -68,25 +69,20 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
 
-                generaOstacoliDinamici()
-                
+                //metodo che genera gli ostacoli dinamici
+                GeneraOstacoliDinamici(xCamera,  yCamera);
             }
         }
 
-        //---Spawn Yeti---//
-        if(yCamera <= -100f && !yetiGenerato){
-            //dopo una certa distanza genera lo Yeti sopra il player e inizia a seguirlo
-            Instantiate(yeti, new Vector2(xCamera, yCamera+3),Quaternion.identity);
-            yetiGenerato = true;
-        }
+        GeneraYeti(xCamera, yCamera);
     }
     
-    private void generaOstacoliDinamici(){       
+    private void GeneraOstacoliDinamici(float xCamera, float yCamera){       
         int randPercentuale = Random.Range(0, 101);
 
         //se la percentuale è sotto il 70
         if(randPercentuale < 70){
-            int randOstacolo = Random.Range(0, ostacoliDinamici.Length);
+            int randOstacolo = Random.Range(0, ostacoliDinamici.Length-1);
             float randSposta = Random.Range(2, 3);
             randPercentuale = Random.Range(0,101);
 
@@ -110,19 +106,14 @@ public class LevelGenerator : MonoBehaviour
             //genera oggetto dinamico
             GameObject oggettoDinamico = 
                 Instantiate(
-                    ostacoliDinamici[randOstacolo], 
+                    ostacoliDinamici[0], 
                     new Vector2(posizioneX, yCamera - DISTANZA_VERTICALE - randSposta), 
                     Quaternion.identity
                 );
             
             //se l'oggetto dinamico si genera a destra dello schermo lo ruota per averlo dritto
             if(!sinistra){
-                oggettoDinamico.transform.eulerAngles = 
-                    new Vector3(
-                        dynamicObject.transform.eulerAngles.x, 
-                        180, 
-                        dynamicObject.transform.eulerAngles.z
-                    );
+                oggettoDinamico.transform.eulerAngles = new Vector3(0, 180, 0);
             }               
             
             //ricava rigidbody
@@ -130,6 +121,15 @@ public class LevelGenerator : MonoBehaviour
             
             //imposta una velocità
             rb.velocity = new Vector2(velocita, 0f);
+        }
+    }
+
+    private void GeneraYeti(float xCamera, float yCamera){
+        //---Spawn Yeti---//
+        if(yCamera <= -100f && !yetiGenerato){
+            //dopo una certa distanza genera lo Yeti sopra il player e inizia a seguirlo
+            Instantiate(yeti, new Vector2(xCamera, yCamera+3),Quaternion.identity);
+            yetiGenerato = true;
         }
     }
 }

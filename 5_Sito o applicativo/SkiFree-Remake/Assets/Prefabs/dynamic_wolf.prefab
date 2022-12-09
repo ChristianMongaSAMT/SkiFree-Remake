@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5022523484035625982}
   - component: {fileID: -2356807738965257221}
   - component: {fileID: 1702893853}
-  - component: {fileID: 6481621205537447865}
+  - component: {fileID: 4336692569898872793}
   m_Layer: 0
   m_Name: dynamic_wolf
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1136718814184384491
 SpriteRenderer:
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021ba434e62299e4583cede1f39b90cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6481621205537447865
+--- !u!114 &4336692569898872793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,6 +196,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2751760322303123056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d3c3b36e425d7468912218f927c2ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 9555806091e7aec41b5e55c5c3aea186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
