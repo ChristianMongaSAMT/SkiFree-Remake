@@ -78,10 +78,10 @@ public class PlayerMovement : MonoBehaviour
             if(!menuPausa.GiocoInPausa){
 
                 //non si può muovere verso l'alto
-                //if(PrendiPosizioneMouse().y < transform.position.y){
+                if(PrendiPosizioneMouse().y < transform.position.y){
                     SeguiMouseDelay(moveSpeed);
                     PuntaMouse();
-                //}
+                }
 
                 //non sta facendo acrobazie
                 acrobazia = false;
