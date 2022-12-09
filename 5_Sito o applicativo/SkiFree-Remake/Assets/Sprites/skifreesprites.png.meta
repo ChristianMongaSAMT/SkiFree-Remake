@@ -319,9 +319,9 @@ TextureImporter:
       name: skifreesprites_10
       rect:
         serializedVersion: 2
-        x: 261
+        x: 288
         y: 223
-        width: 59
+        width: 32
         height: 31
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

@@ -141,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 
+        GameObject.FindGameObjectWithTag("PlayerBody").GetComponent<Animator>().SetBool("scontro", true);
+
         //aspetta 2 secondi prima di sbloccare il personaggio
         StartCoroutine(scontro());
         
@@ -153,6 +155,7 @@ public class PlayerMovement : MonoBehaviour
         //vengono reimpostati i valori corretti
         transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
         moveSpeed = SPEED;
+        GameObject.FindGameObjectWithTag("PlayerBody").GetComponent<Animator>().SetBool("scontro", false);
     }
 
     public IEnumerator salto(){
@@ -163,10 +166,6 @@ public class PlayerMovement : MonoBehaviour
         volo = false;
     }
 
-    IEnumerator aspetta(int secondi){
-        yield return new WaitForSeconds(secondi);
-        Debug.Log("ASPETTA");
-    }
     /*
     private void setMoveSpeed(){
         StartCoroutine(accelerate());
