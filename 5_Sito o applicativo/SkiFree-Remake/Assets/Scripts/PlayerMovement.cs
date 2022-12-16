@@ -6,12 +6,10 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector3 mousePosition;
-
     private Camera mainCamera;
-
+    
     [SerializeField]
     private Dati dati;
-    
     [SerializeField]
     private MenuPausa menuPausa;
 
@@ -21,43 +19,11 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed = SPEED;
     private bool volo = false;
     private float angle = 0;
-    private bool acrobazia = false; 
-    private float ultimaAngolazione = 0;
-    Rigidbody2D rb;
-
-    //private Transform playerBodyTransform;
+    private bool acrobazia = false;
     Vector2 position = new Vector3(0f, 0f);
 
     private void Start(){
-        rb = GetComponent<Rigidbody2D>();
-
         mainCamera	= Camera.main;
-
-        //playerBodyTransform = transform.GetChild(0);
-    }
-
-    private Vector2 PrendiPosizioneMouse(){
-        //ritorna la posizione del mouse
-        return mainCamera.ScreenToWorldPoint(Input.mousePosition);
-    }
-
-    private void SeguiMouseDelay(float speed){
-        //salva la posizione del mouse in mousePosition
-        mousePosition = PrendiPosizioneMouse();
-        
-        //muove il player dalla sua posizione verso quella del mouse
-        transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
-    }
-
-    public void PuntaMouse(){
-        //prende le posizioni del mouse
-        mousePosition = PrendiPosizioneMouse();
-
-        //prende la direzione in cui deve guardare
-        Vector2 direzione = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-
-        //sprite ruotato di 180 gradi (x) così punta correttametne al cursore
-        transform.up = direzione;
     }
 
     private void Update(){
@@ -124,9 +90,28 @@ public class PlayerMovement : MonoBehaviour
         position = Vector2.MoveTowards(transform.position, mousePosition, (moveSpeed/35) );
     }
 
-    private void FixedUpdate(){
-        rb.MovePosition(position);
-        //setMoveSpeed();
+    private Vector2 PrendiPosizioneMouse(){
+        //ritorna la posizione del mouse
+        return mainCamera.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void SeguiMouseDelay(float speed){
+        //salva la posizione del mouse in mousePosition
+        mousePosition = PrendiPosizioneMouse();
+        
+        //muove il player dalla sua posizione verso quella del mouse
+        transform.position = Vector2.MoveTowards(transform.position, mousePosition, speed * Time.deltaTime);
+    }
+
+    public void PuntaMouse(){
+        //prende le posizioni del mouse
+        mousePosition = PrendiPosizioneMouse();
+
+        //prende la direzione in cui deve guardare
+        Vector2 direzione = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+
+        //sprite ruotato di 180 gradi (x) così punta correttametne al cursore
+        transform.up = direzione;
     }
 
     private void OnCollisionEnter2D(Collision2D c){
@@ -165,18 +150,4 @@ public class PlayerMovement : MonoBehaviour
         //non sta più volando
         volo = false;
     }
-
-    /*
-    private void setMoveSpeed(){
-        StartCoroutine(accelerate());
-    }
-    IEnumerator accelerate(){
-        
-        yield return new WaitForSeconds(0.5f);
-        if(moveSpeed < 0.1f){
-            moveSpeed += 0.01f;
-            Debug.Log(moveSpeed);
-        }
-        
-    }*/
 }

@@ -7,13 +7,11 @@ public class Yeti : MonoBehaviour
     private GameObject player;
     private float velocita = 3f;
 
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
         //muove lo yeti verso la posizione del player

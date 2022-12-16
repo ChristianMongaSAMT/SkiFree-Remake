@@ -18,6 +18,7 @@ public class MenuPausa : MonoBehaviour
             }
         }
     }
+    
     public void Riprendi(){
         menuPausa.SetActive(false);
         Time.timeScale = 1f;
@@ -32,5 +33,6 @@ public class MenuPausa : MonoBehaviour
 
     public void TornaAlMenu(){
         SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 }
