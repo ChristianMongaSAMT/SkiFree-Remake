@@ -7,15 +7,14 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[] ostacoli;
     public GameObject[] ostacoliDinamici;
     public GameObject yeti;
-    private bool yetiGenerato = false;
     public Camera cam;
 
-    private GameObject dynamicObject;
     private const int DISTANZA_VERTICALE = 3;
     private const int DISTANZA_ORIZZONTALE = 20;
     private const float VELOCITA_OSTACOLI = 5f;
     private const int POSIZIONE_SPAWN_OSTACOLO_DINAMICO = 10;
     private const int RANGE = 2;
+    private bool yetiGenerato = false;
     private List<float> yUsate = new List<float>();
 
     private void Update(){

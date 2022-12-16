@@ -252,7 +252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ESCI
+  m_text: 'TORNA AL MENU '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -477,28 +477,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331d00112b509f64391be45a148dcb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &205921807 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9060516201612139739, guid: 4b85146f2e79aa244b66d1835d593ec0, type: 3}
-  m_PrefabInstance: {fileID: 9060516201406743252}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &205921808 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9060516201612139716, guid: 4b85146f2e79aa244b66d1835d593ec0, type: 3}
   m_PrefabInstance: {fileID: 9060516201406743252}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &205921812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 205921807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9555806091e7aec41b5e55c5c3aea186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &441008520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1111,7 +1094,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: 80, y: 15}
+  m_SizeDelta: {x: 113.4663, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &881561597
 MonoBehaviour:
@@ -1159,7 +1142,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1933586929}
         m_TargetAssemblyTypeName: MenuPausa, Assembly-CSharp
-        m_MethodName: Esci
+        m_MethodName: TornaAlMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1785,7 +1768,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1933586929}
         m_TargetAssemblyTypeName: MenuPausa, Assembly-CSharp
-        m_MethodName: Resume
+        m_MethodName: Riprendi
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2026,8 +2009,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572e0fc492ab2d54b953aa9c3ef3afe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GiocoInPausa: 0
   menuPausa: {fileID: 1750736439}
+  GiocoInPausa: 0
 --- !u!1 &2016429179
 GameObject:
   m_ObjectHideFlags: 0

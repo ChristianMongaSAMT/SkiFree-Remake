@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class MenuPrincipale : MonoBehaviour
 {
     public void Gioca(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
     }
 
     public void Esci(){
-        Debug.Log("QUIT");
         Application.Quit();
     }
 }

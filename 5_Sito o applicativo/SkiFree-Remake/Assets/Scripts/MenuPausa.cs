@@ -1,40 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuPausa : MonoBehaviour
 {
-   public bool GiocoInPausa = false;
+    public GameObject menuPausa;
+    public bool GiocoInPausa = false;
 
- 
-
-   public GameObject menuPausa;
-
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)){
             if(GiocoInPausa){
-                Resume();
+                Riprendi();
             }else{
-                Pause();
+                Pausa();
             }
         }
     }
-    public void Resume(){
+    public void Riprendi(){
         menuPausa.SetActive(false);
         Time.timeScale = 1f;
         GiocoInPausa = false;
     }
 
-    public void Pause(){
+    public void Pausa(){
         menuPausa.SetActive(true);
         Time.timeScale = 0f;
         GiocoInPausa = true;
     }
 
-    public void Esci(){
-        Debug.Log("QUIT");
-        Application.Quit();
+    public void TornaAlMenu(){
+        SceneManager.LoadScene(0);
     }
 }
