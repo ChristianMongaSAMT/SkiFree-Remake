@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private MenuPausa menuPausa;
 
+    Rigidbody2D rb;
+
     private const float SPEED = 2f;
     public const float JUMP_TIME = 2f;
     private const int PUNTI_ACROBAZIA = 1;
@@ -24,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start(){
         mainCamera	= Camera.main;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update(){
@@ -73,6 +77,9 @@ public class PlayerMovement : MonoBehaviour
         }else{
             //essendo in volo non può girare ma mantiene una direzione costante
             mousePosition = new Vector3(mousePosition.x, mainCamera.ScreenToWorldPoint(mousePosition).y, mousePosition.z);
+            
+            //si muove più velocemente in volo
+            transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(mousePosition.x, mainCamera.ScreenToWorldPoint(mousePosition).y, -1f), (moveSpeed*Time.deltaTime)*2);
 
             //se viene premuto il tasto destro fa una piccola rotazione
             if(Input.GetMouseButtonDown(1)){
@@ -86,8 +93,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        //si muove più veloce in volo
-        position = Vector2.MoveTowards(transform.position, mousePosition, (moveSpeed/35) );
     }
 
     private Vector2 PrendiPosizioneMouse(){
