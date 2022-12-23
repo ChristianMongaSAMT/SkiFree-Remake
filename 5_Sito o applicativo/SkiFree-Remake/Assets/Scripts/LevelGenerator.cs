@@ -8,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject[] ostacoliDinamici;
     public GameObject yeti;
     public Camera cam;
-
+    private const float GENERAZIONE_YETI = -2500;
     private const int DISTANZA_VERTICALE = 3;
     private const int DISTANZA_ORIZZONTALE = 20;
     private const float VELOCITA_OSTACOLI = 5f;
@@ -125,7 +125,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void GeneraYeti(float xCamera, float yCamera){
         //---Spawn Yeti---//
-        if(yCamera <= -100f && !yetiGenerato){
+        if(yCamera <= GENERAZIONE_YETI && !yetiGenerato){
             //dopo una certa distanza genera lo Yeti sopra il player e inizia a seguirlo
             Instantiate(yeti, new Vector2(xCamera, yCamera+3),Quaternion.identity);
             yetiGenerato = true;
